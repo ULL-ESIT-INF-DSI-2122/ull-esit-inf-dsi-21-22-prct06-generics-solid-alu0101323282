@@ -2,6 +2,10 @@ import {Charmander} from './Pokemon/Charmander';
 import {Fighter} from './Fighter';
 import {Pikachu} from './Pokemon/Pikachu';
 import {Pokemon} from './Pokemon';
+import {Spiderman} from './Marvel/Spiderman';
+import {Hulk} from './Marvel/Hulk';
+import {Superman} from './DC/Superman';
+import {Batman} from './DC/Batman';
 
 /**
  * Class to represent a combat.
@@ -56,6 +60,8 @@ export class Combat {
     } else {
       console.log(`${this.fighter2.getName()} WINS`);
     }
+    this.fighter1.restoreHP();
+    this.fighter2.restoreHP();
   }
 
   /**
@@ -83,6 +89,30 @@ export class Combat {
         default:
           efectivity = 0.5;
       }
+    } else {
+      switch (attacker.getUniverse() + '-' + defender.getUniverse()) {
+        case ('Pokemon-Marvel'):
+        case ('Marvel-DC'):
+        case ('DC-StarWars'):
+        case ('StarWars-DragonBall'):
+        case ('DragonBall-Pokemon'):
+          efectivity = 2;
+          break;
+        case ('Pokemon-DC'):
+        case ('Pokemon-StarWars'):
+        case ('Marvel-StarWars'):
+        case ('Marvel-DragonBall'):
+        case ('DC-DragonBall'):
+        case ('DC-Pokemon'):
+        case ('StarWars-Pokemon'):
+        case ('StarWars-Marvel'):
+        case ('DragonBall-Marvel'):
+        case ('DragonBall-DC'):
+          efectivity = 1;
+          break;
+        default:
+          efectivity = 0.5;
+      }
     }
     return 50 * (attacker.getAttack() / defender.getDefense()) * efectivity;
   }
@@ -105,6 +135,22 @@ export class Combat {
 }
 
 let pikachu: Pikachu = new Pikachu;
-let chamander: Charmander = new Charmander;
-let combate: Combat = new Combat(pikachu, chamander);
+let charmander: Charmander = new Charmander;
+let combate: Combat = new Combat(pikachu, charmander);
 combate.start();
+
+let spiderman: Spiderman = new Spiderman;
+let hulk: Hulk = new Hulk;
+let combate2: Combat = new Combat(spiderman, hulk);
+combate2.start();
+
+let superman: Superman = new Superman;
+let batman: Batman = new Batman;
+let combate3: Combat = new Combat(superman, batman);
+combate3.start();
+
+let combate4: Combat = new Combat(spiderman, pikachu);
+combate4.start();
+
+let combate5: Combat = new Combat(charmander, batman);
+combate5.start();

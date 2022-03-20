@@ -1,4 +1,4 @@
-import {Fighter} from './Fighter';
+import {Fighter, UniverseType} from './Fighter';
 
 /**
  * Definition of the posible pokemon types
@@ -10,6 +10,7 @@ export type PokemonType = 'fire' | 'grass' | 'water' | 'electric';
  */
 export abstract class Pokemon extends Fighter {
   protected abstract readonly type: PokemonType;
+  protected readonly universe: UniverseType = 'Pokemon';
   constructor() {
     super();
   }

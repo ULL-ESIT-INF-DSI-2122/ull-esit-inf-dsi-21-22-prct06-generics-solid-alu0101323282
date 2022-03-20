@@ -1,3 +1,4 @@
+export type UniverseType = 'Pokemon' | 'Marvel' | 'DC' | 'StarWars' | 'DragonBall';
 
 export abstract class Fighter {
   protected abstract hp: number;
@@ -9,6 +10,7 @@ export abstract class Fighter {
   protected abstract readonly speed: number;
   protected abstract readonly maxHp: number;
   protected abstract readonly phrase: string;
+  protected abstract readonly universe: string;
   getName() {
     return this.name;
   }
@@ -29,6 +31,9 @@ export abstract class Fighter {
   }
   getMaxHP() {
     return this.maxHp;
+  }
+  getUniverse() {
+    return this.universe;
   }
   getHP() {
     return this.hp;
