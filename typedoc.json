@@ -1,0 +1,8 @@
+{
+    "entryPoints": [
+        "./src/ejercicio-1/.ts"
+    ],
+    "out": "./docs/",
+    "sort": "enum-value-ascending",
+    "name": "Informe Práctica 5"
+}
