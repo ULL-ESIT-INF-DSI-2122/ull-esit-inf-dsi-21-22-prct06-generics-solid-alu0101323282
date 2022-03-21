@@ -1,6 +1,10 @@
 {
     "entryPoints": [
-        "./src/ejercicio-1/.ts"
+        "./src/mod/Collectable.ts",
+        "./src/mod/Printable.ts",
+        "./src/mod/PrintableCollection.ts",
+        "./src/mod/NumericPrintableCollection.ts",
+        "./src/mod/StringPrintableCollection.ts"
     ],
     "out": "./docs/",
     "sort": "enum-value-ascending",
