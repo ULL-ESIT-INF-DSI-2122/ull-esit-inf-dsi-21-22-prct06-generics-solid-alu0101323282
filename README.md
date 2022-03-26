@@ -11,7 +11,6 @@
   ### __Ejercicio 1 - El combate definitivo__
    
    Para este ejercicio creé la siguiente jerarquía de clases:
-   - Combat
    - Fighter
      - Pokemon
        - Pikachu
@@ -28,6 +27,125 @@
      - DragonBall
        - Goku
        - Krilin
+   - Pokedex
+   - Combat
+
+   #### __Clase `Fighter`__:
+   
+   Esta es una clase abstracta con las propiedades que deben tener todos los luchadores, es decir, que deben implementar todas las clases que extendian de ella. Además esta implementa los getters y setters corrspondientes de cada una y los métodos `restoreHealth()`, que devuelve `hp` a su valor máximo, y `sayPhrase()`, que muestra por pantalla la catching phrase del luchador.
+   
+   ``` typescript
+   export abstract class Fighter {
+     protected abstract hp: number;
+     protected abstract readonly name: string;
+     protected abstract readonly height: number;
+     protected abstract readonly weigth: number;
+     protected abstract readonly attack: number;
+     protected abstract readonly defense: number;
+     protected abstract readonly speed: number;
+     protected abstract readonly maxHp: number;
+     protected abstract readonly phrase: string;
+     protected abstract readonly universe: Universe;
+     getName(): string {
+       return this.name;
+     }
+     getWeigth(): number {
+       return this.weigth;
+     }
+     getHeight(): number {
+       return this.height;
+     }
+     getAttack(): number {
+       return this.attack;
+     }
+     getDefense(): number {
+       return this.defense;
+     }
+     getSpeed(): number {
+       return this.speed;
+     }
+     getMaxHP(): number {
+       return this.maxHp;
+     }
+     getUniverse(): Universe {
+       return this.universe;
+     }
+     getHP(): number {
+       return this.hp;
+     }
+     setHP(health: number): void {
+       this.hp = health;
+     }
+     restoreHP(): void {
+       this.hp = this.maxHp;
+     }
+     getPhrase(): string {
+       return this.phrase;
+     }
+     sayPhrase(): void {
+       console.log(`${this.name}: "${this.phrase}"`);
+     }
+   }
+   ```
+   
+   #### __Clases de cada Universo__
+   La clase abstracta de cada universo (Pokemon, Marvel, DC, ...) inicializa la propiedad `universe` heredada de `Fighter` e implementa una propiedad nueva con su correspondiente getter. Por ejemplo, en la clase `Pokemon` el valor de de la propiedad `universo` es 'Pokemon', se añade una nueva propiedad `type` que almacena el tipo pokémon del luchador y se implementa su correspondiente getter:
+   
+   ```typescript
+   export abstract class Pokemon extends Fighter {
+     protected abstract readonly type: PokemonType;
+     protected readonly universe: Universe = 'Pokemon';
+     constructor() {
+       super();
+     }
+     getType() {
+       return this.type;
+     }
+   }
+   ```
+   #### __Clases de cada luchador__
+   La clase de cada luchador, deja de ser una clase abstracta, hereda todos los métodos y propiedades de sus clases padre e inicializa el valor de dichas propiedades. Ejemplo de la clase `Pikachu`:
+   
+   ```typescript
+   export class Pikachu extends Pokemon {
+     protected readonly name: string = 'Pikachu';
+     protected readonly height: number = 0.8;
+     protected readonly weigth: number = 5;
+     protected readonly attack: number = 47;
+     protected readonly defense: number = 32;
+     protected readonly speed: number = 72;
+     protected readonly maxHp: number = 80;
+     protected readonly phrase: string = 'Pika Pika!!';
+     protected readonly type: PokemonType = 'electric';
+     protected hp: number = this.maxHp;
+     constructor() {
+       super();
+     }
+   }
+   ```
+
+    #### __Clase `Pokedex`__: 
+   El constructor de esta clase recibe como parámetros un array de objetos de la clase `Fighter` correspondiente a la propiedad `fighters`. La clase consta del getter para dicha propiedad, de un método `addFighter()` para añadir luchadores al array `fighters`, otro para eliminarlos de este `removeFighter()`, y un método `searchByName` que devuelve un array con los luchadores cuya propiedad `name` coincida con el `string` pasado como parámetro.
+   
+   
+   ``` typescript
+   export class Pokedex {
+     constructor(private fighters: Fighter[]) {
+     }
+     getFighters(): Fighter[] {
+       return this.fighters;
+     }
+     addFighter(f: Fighter): void {
+       this.fighters.push(f);
+     }
+     removeFighters(i: number): void {
+       this.fighters.splice(i, 1);
+     }
+     searchByName(name: string): Fighter[] {
+       return this.fighters.filter((f: Fighter) => f.getName() === name);
+     }  
+   }
+   ```
 
    #### __Clase `Combat`__: 
    El constructor de esta clase recibe como parámetros dos objetos de tipo `Fighter` correpondientes a las propiedades `fighter1` y `fighter2`, ambas de sólo lectura. La clase consta de los getters de cada propiedad, del método `start()` que simula un combate, del método `attackDamage()` que calcula el daño causado por el ataque de un luchador al otro, y del método `printHPs()`que muestra por pantalla los puntos de vida de cada uno.
@@ -114,73 +232,7 @@
    }
    ```
       
-   #### __Clase `Pokemon`__ :
-   El constructor de esta clase recibe como parámetros las propiedades correspondientes al nombre `name`, peso `weigth`, altura `height`, tipo `type`, ataque `attack`, defensa `defense`, velocidad `speed` y daño máximo `maxHp` como propiedades de sólo lectura, pues no queremos que sean modificadas. La única propiedad que permite su modificación es el HP o puntos de vida `hp`, pues necesitaremos cambiar su valor durante el transcurso de los combates. Para poder leer y modificar dichas propiedades, se consta de los correspondientes getters y setters. Por último el método `restoreHP()` restaura el valor del atributo `hp` al daño máximo `maxHp`.
    
-   
-   ``` typescript
-   export class Pokemon {
-     private hp: number;
-     constructor(private readonly name: string, private readonly weigth: number,
-         private readonly height: number, private readonly type: PokemonType,
-         private readonly attack: number, private readonly defense: number,
-         private readonly speed: number, private readonly maxHp: number) {
-           this.hp = maxHp;
-     }
-     getName() {
-       return this.name;
-     }
-     getType() {
-       return this.type;
-     }
-     getAttack() {
-       return this.attack;
-     }
-     getDefense() {
-       return this.defense;
-     }
-     getHP() {
-       return this.hp;
-     }
-     setHP(health: number) {
-       this.hp = health;
-     }
-     restoreHP() {
-       this.hp = this.maxHp;
-     }
-   }
-   ```
-   Para el tipo pokemon `type` creé un tipo personalizado:
-   ```typescript
-   export type PokemonType = 'fire' | 'grass' | 'water' | 'electric';
-   ```
-   
-   #### __Clase `Pokedex`__: 
-   El constructor de esta clase recibe como parámetros un array de objetos de la clase `Pokemon` correspondiente a la propiedad `pokemons`. La clase consta de los getter y setter para dicha propiedad, de un método `addPokemon` para añadir pokemons al array `pokemons`, y un método `searchByName` que devuelve un array con los pokemons cuya propiedad `name` coincida con el `string` pasado como parámetro.
-   
-   
-   ``` typescript
-   export class Pokedex {
-     constructor(private pokemons: Pokemon[]) {
-     }
-     getPokemons() {
-       return this.pokemons;
-     }
-     setPokemons(p: Pokemon[]) {
-       this.pokemons = p;
-     }
-     addPokemon(pokemon: Pokemon) {
-       this.pokemons.push(pokemon);
-     }
-     searchByName(name: string): Pokemon[] {
-       return this.pokemons.filter((pokemon: Pokemon) => pokemon.getName() === name);
-     }
-   }
-   ```
-   
-   
-  
-  
    ### __Ejercicio 2 - DSIflix__
    
    Para este ejercicio creé tres clases: `Board` para representar el tablero y `Connect4` para simular una partida.
