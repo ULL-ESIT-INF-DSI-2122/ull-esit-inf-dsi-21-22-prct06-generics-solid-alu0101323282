@@ -2,7 +2,7 @@
   ### Marc Carbonell González de Chaves 
   ## __Tareas previas__
    1. Acepté la [asignación de Github Classroom](https://classroom.github.com/a/yJcZROry).
-   3. DUrante el desarrollo de la práctica utilicé [Instanbul](https://istanbul.js.org/) y [Coveralls](https://coveralls.io/).
+   3. Durante el desarrollo de la práctica utilicé [Instanbul](https://istanbul.js.org/) y [Coveralls](https://coveralls.io/).
   
   ## __Ejercicios__
     
@@ -10,8 +10,110 @@
    
   ### __Ejercicio 1 - El combate definitivo__
    
-   Para este ejercicio creé tres clases: `Pokemon` para representar pokémons, `Pokedex` para representar una pokédex y `Combat` para simular un combate pokémon.
+   Para este ejercicio creé la siguiente jerarquía de clases:
+   - Combat
+   - Fighter
+     - Pokemon
+       - Pikachu
+       - Charmander
+     - Marvel
+       - Spiderman
+       - Hulk
+     - StarWars
+       - DarthVader
+       - Skywalker
+     - DC
+       - Superman
+       - Batman
+     - DragonBall
+       - Goku
+       - Krilin
+
+   #### __Clase `Combat`__: 
+   El constructor de esta clase recibe como parámetros dos objetos de tipo `Fighter` correpondientes a las propiedades `fighter1` y `fighter2`, ambas de sólo lectura. La clase consta de los getters de cada propiedad, del método `start()` que simula un combate, del método `attackDamage()` que calcula el daño causado por el ataque de un luchador al otro, y del método `printHPs()`que muestra por pantalla los puntos de vida de cada uno.
    
+   - start(): Este método utiliza un bucle `while` para ir comprobando durante cada turno si la vida de alguno de los dos luchadores es mayor que cero. En cada turno se modifican los puntos de salud de un luchador según el daño recibido por el ataque de su contrincante (`attackDamage()`). Al salir del bucle se comprueba mediante un `if-else` qué luchador no ha sido debilitado y se muestra un mensaje de victoria por pantalla.
+   - attackDamage(): Calcula el daño causado por un ataque del primer luchador pasado como parámetro al segundo luchador pasado como parámetro. Mediante un `switch` se calcula la efectividad del ataque según los el universo de los contrincantes y finalmente se devuelve el resultado de la fórmula: 50 * (attacker.getAttack() / defender.getDefense()) * efectivity.
+   - printHPs(): Imprime los puntos de vida de cada luchador. Si el valor es menor que cero se imprime un `0` en lugar del valor real, esto se comprueba con un `if-else`.
+   
+    ``` typescript
+    export class Combat {
+     constructor(private readonly fighter1: Fighter,
+         private readonly fighter2: Fighter) {
+     }
+     getFighter1(): Fighter {
+       return this.fighter1;
+     }
+     getFighter2(): Fighter {
+       return this.fighter2;
+     }
+     start(): void {
+       console.log(`${this.fighter1.getName()} VS ${this.fighter2.getName()}`);
+       console.log('====================');
+       this.printHPs();
+       let turn = 1;
+       while ((this.fighter1.getHP() > 0) && (this.fighter2.getHP() > 0)) {
+         this.fighter2.setHP(this.fighter2.getHP() - this.attackDamage(this.fighter1, this.fighter2));
+         console.log(`TURN ${turn}: ${this.fighter1.getName()} > ${this.fighter2.getName()}`);
+         this.fighter1.sayPhrase();
+         this.printHPs();
+         turn ++;
+         if (this.fighter2.getHP() > 0) {
+           this.fighter1.setHP(this.fighter1.getHP() - this.attackDamage(this.fighter2, this.fighter1));
+           console.log(`TURN ${turn}: ${this.fighter2.getName()} > ${this.fighter1.getName()}`);
+           this.fighter2.sayPhrase();
+           this.printHPs();
+           turn ++;
+         }
+       }
+       if (this.fighter1.getHP() > 0) {
+         console.log(`${this.fighter1.getName()} WINS`);
+       } else {
+         console.log(`${this.fighter2.getName()} WINS`);
+       }
+     }
+     attackDamage(attacker: Fighter, defender: Fighter): number {
+       let efectivity: number = 0;
+       switch (attacker.getUniverse() + '-' + defender.getUniverse()) {
+         case ('Pokemon-Marvel'):
+         case ('Marvel-DC'):
+         case ('DC-StarWars'):
+         case ('StarWars-DragonBall'):
+         case ('DragonBall-Pokemon'):
+           efectivity = 2;
+           break;
+         case ('Pokemon-DC'):
+         case ('Pokemon-StarWars'):
+         case ('Marvel-StarWars'):
+         case ('Marvel-DragonBall'):
+         case ('DC-DragonBall'):
+         case ('DC-Pokemon'):
+         case ('StarWars-Pokemon'):
+         case ('StarWars-Marvel'):
+         case ('DragonBall-Marvel'):
+         case ('DragonBall-DC'):
+           efectivity = 1;
+           break;
+         default:
+           efectivity = 0.5;
+       }
+       return 50 * (attacker.getAttack() / defender.getDefense()) * efectivity;
+     }
+     printHPs(): void {
+       if (this.fighter1.getHP() < 0) {
+         console.log(`${this.fighter1.getName()}: 0 HP`);
+       } else {
+         console.log(`${this.fighter1.getName()}: ${(this.fighter1.getHP()).toFixed(0)} HP`);
+       }
+       if (this.fighter2.getHP() < 0) {
+         console.log(`${this.fighter2.getName()}: 0 HP\n`);
+       } else {
+         console.log(`${this.fighter2.getName()}: ${(this.fighter2.getHP()).toFixed(0)} HP\n`);
+       }
+     }
+   }
+   ```
+      
    #### __Clase `Pokemon`__ :
    El constructor de esta clase recibe como parámetros las propiedades correspondientes al nombre `name`, peso `weigth`, altura `height`, tipo `type`, ataque `attack`, defensa `defense`, velocidad `speed` y daño máximo `maxHp` como propiedades de sólo lectura, pues no queremos que sean modificadas. La única propiedad que permite su modificación es el HP o puntos de vida `hp`, pues necesitaremos cambiar su valor durante el transcurso de los combates. Para poder leer y modificar dichas propiedades, se consta de los correspondientes getters y setters. Por último el método `restoreHP()` restaura el valor del atributo `hp` al daño máximo `maxHp`.
    
@@ -76,81 +178,8 @@
    }
    ```
    
-
-   #### __Clase `Combat`__: 
-   El constructor de esta clase recibe como parámetros dos objetos de tipo `Pokemon` correpondientes a las propiedades `pokemon1` y `pokemon2`, ambas de sólo lectura. La clase consta de los getters de cada propiedad, del método `start()` que simula un combate pokémon, del método `pokemonDamage()` que calcula el daño causado por el ataque de un pokémon al otro, y del método `printHPs()`que muestra por pantalla los puntos de vida de cada pokémon.
    
-   - start(): Este método utiliza un bucle `while` para ir comprobando durante cada turno si la vida de alguno de los dos pokemons es mayor que cero. En cada turno se modifican los puntos de salud de un pokemon según el daño recibido por el ataque de su contrincante (`pokemonDamage()`). Al salir del bucle se comprueba mediante un `if-else` qué pokemon no ha sido debilitado y se muestra un mensaje de victoria por pantalla.
-   - pokemonDamage(): Calcula el daño causado por un ataque del primer pokémon pasado como parámetro al segundo pokémon pasado como parámetro. Mediante un `switch` se calcula la efectividad del ataque según los tipos pokémon de los contrincantes y finalmente se devuelve el resultado de la fórmula: 50 * (attacker.getAttack() / defender.getDefense()) * efectivity.
-   - printHPs(): Imprime los puntos de vida de cada pokémon. Si el valor es menor que cero se imprime un `0` en lugar del valor real, esto se comprueba con un `if-else`.
-   
-   
-   ``` typescript
-   export class Combat {
-     constructor(private readonly pokemon1: Pokemon,
-         private readonly pokemon2: Pokemon) {
-     }
-     getPokemon1() {
-       return this.pokemon1;
-     } 
-     getPokemon2() {
-       return this.pokemon1;
-     } 
-     start() {
-       let turn = 1;
-       while ((this.pokemon1.getHP() > 0) && (this.pokemon2.getHP() > 0)) {
-         this.pokemon2.setHP(this.pokemon2.getHP() - this.pokemonDamage(this.pokemon1, this.pokemon2));
-         console.log(`TURN ${turn}: ${this.pokemon1.getName()} > ${this.pokemon2.getName()}`);
-         this.printHPs();
-         turn ++;
-         if (this.pokemon2.getHP() > 0) {
-           this.pokemon1.setHP(this.pokemon1.getHP() - this.pokemonDamage(this.pokemon2, this.pokemon1));
-           console.log(`TURN ${turn}: ${this.pokemon2.getName()} > ${this.pokemon1.getName()}`);
-           this.printHPs();
-           turn ++;
-         }
-       }
-       if (this.pokemon1.getHP() > 0) {
-         console.log(`${this.pokemon1.getName()} WINS`);
-       } else {
-         console.log(`${this.pokemon2.getName()} WINS`);
-       }
-     }
-     pokemonDamage(attacker: Pokemon, defender: Pokemon): number {
-       let efectivity: number;
-       switch (attacker.getType() + '-' + defender.getType()) {
-         case ('fire-grass'):
-         case ('water-fire'):
-         case ('grass-water'):
-         case ('electric-water'):
-           efectivity = 2;
-           break;
-         case ('fire-electric'):
-         case ('grass-electric'):
-         case ('electric-fire'):
-         case ('electric-grass'):
-           efectivity = 1;
-           break;
-         default:
-           efectivity = 0.5;
-       }
-       return 50 * (attacker.getAttack() / defender.getDefense()) * efectivity;
-     }
-     printHPs(): void {
-       if (this.pokemon1.getHP() < 0) {
-         console.log(`${this.pokemon1.getName()}: 0 HP`);
-       } else {
-         console.log(`${this.pokemon1.getName()}: ${(this.pokemon1.getHP()).toFixed(0)} HP`);
-       }
-       if (this.pokemon2.getHP() < 0) {
-         console.log(`${this.pokemon2.getName()}: 0 HP\n`);
-       } else {
-         console.log(`${this.pokemon2.getName()}: ${(this.pokemon2.getHP()).toFixed(0)} HP\n`);
-       }
-     }
-   }
-   ```
-     
+  
   
    ### __Ejercicio 2 - DSIflix__
    
