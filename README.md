@@ -324,6 +324,70 @@
    ```
    
    ### __Ejercicio 3 - El cifrado indescifrable__
+   Para este ejercicio únicamente implementé la clase `Cifrado`.
    
-   Para este ejercicio creé tres clases: `Board` para representar el tablero y `Connect4` para simular una partida.
+   #### __Clase `Cifrado`__
+   Esta clase recibe, como parámetros a través del constructor, el alfabeto y la clave a utilizar para el cifrado, corresponidentes a las propiedades `alfabeto` y `cifrado`, e implementa los correspondientes getters y setters de dichas propiedades, un método para comprobar que una cadena pertenece al alfabeto de la clase `perteneceAlAlfabeto()` y dos métodos para cifrar `codificar()` y descifrar `descodificar()` un mensaje.
+   - codificar(): Este método consiste en calcular las posiciones en el alfabeto de cada carácter del mensaje y de la clave, e ir añadiendo a la cadena que contendrá el mensaje cifrado el caracter que se encuentra en la posición obtenida al sumar dichas posiciones. Para que el resultado de la suma nunca sobrepase el valor máximo de la longitud del alfabeto se le aplica el módulo `%` de la longitud del alfabeto.
+   - decodificar(): Este método funciona igual que el de codificar pero en este caso se calcula la nueva posición restando la posición del caracter de la clave a la posicion del caracter del mensaje. Para que el resultado de la resta no sobrepase el valor mínimo de la longitud del alfabeto siempre que esto suceda se le sumará a dicho valor la longitud del alfabeto.
+
+Ambos métodos pasan el mensaje y la clave a minúscula mediante el método `toLowerCase()`, por lo que las cadenas resultantes también estarán en minúscula.
+   
+   ``` typescript
+   export class Cifrado {
+     constructor(private alfabeto: string, private clave: string) {}
+     getAlfabeto(): string {
+       return this.alfabeto;
+     }
+     setAlfabeto(nuevoAlfabeto: string): void {
+       let temp: string = this.alfabeto;
+       this.alfabeto = nuevoAlfabeto;
+       if (!this.perteneceAlAlfabeto(this.clave)) {
+         this.alfabeto = temp;
+       }
+     }
+     getClave(): string {
+       return this.clave;
+     }
+     setClave(nuevaClave: string): void {
+       if (this.perteneceAlAlfabeto(nuevaClave)) {
+         this.clave = nuevaClave;
+       }
+     }
+     perteneceAlAlfabeto(str: string): boolean {
+       const caracteres: string[] = str.toLowerCase().split('');
+       for (let i: number = 0; i < caracteres.length; i++) {
+         if (this.alfabeto.toLowerCase().indexOf(caracteres[i]) === -1) return false;
+       }
+       return true;
+     }
+     codificar(mensaje: string): string | undefined {
+       if (!this.perteneceAlAlfabeto(mensaje)) return undefined;
+       let cifrado: string = '';
+       let msgPos: number;
+       let keyPos: number;
+       for (let i: number = 0; i < mensaje.length; i++) {
+         msgPos = this.alfabeto.toLowerCase().indexOf(mensaje[i].toLowerCase());
+         keyPos = this.alfabeto.toLowerCase().indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1;
+         cifrado += this.alfabeto[(msgPos + keyPos) % this.alfabeto.length].toLowerCase();
+       }
+       return cifrado;
+     }
+     decodificar(mensaje: string): string | undefined {
+       if (!this.perteneceAlAlfabeto(mensaje)) return undefined;
+       let descifrado: string = '';
+       let msgPos: number;
+       let keyPos: number;
+       let descifratedPos: number;
+       for (let i: number = 0; i < mensaje.length; i++) {
+         msgPos = this.alfabeto.indexOf(mensaje[i].toLowerCase());
+         keyPos = this.alfabeto.indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1;
+         descifratedPos = msgPos - keyPos;
+         if (descifratedPos < 0) descifratedPos += this.alfabeto.length;
+         descifrado += this.alfabeto[descifratedPos].toLowerCase();
+       }
+       return descifrado;
+     }
+   }
+   ```
   
