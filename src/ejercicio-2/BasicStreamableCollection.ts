@@ -18,6 +18,13 @@ export abstract class BasicStreamableCollection<T extends Series | Film | Docume
   constructor(public readonly collection: T[]) {
   }
   /**
+   * Getter for the propiety `collection`.
+   * @returns Returns `collection`.
+   */
+  getCollection(): T[] {
+    return this.collection;
+  }
+  /**
    * Getter for the propiety `collectionType`.
    * @returns Returns `collectionType`.
    */

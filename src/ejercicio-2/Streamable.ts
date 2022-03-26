@@ -16,6 +16,10 @@ export interface Streamable<T> {
      */
     collectionType: CollectionType;
     /**
+     * Getter for the propiety `collection`.
+     */
+    getCollection(): T[];
+    /**
      * Getter for the propiety `clave`.
      */
     getCollectionType(): CollectionType;

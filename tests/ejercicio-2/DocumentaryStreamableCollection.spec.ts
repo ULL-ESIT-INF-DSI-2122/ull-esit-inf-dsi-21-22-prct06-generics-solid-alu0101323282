@@ -17,6 +17,9 @@ describe('Pruebas clase DocumentaryStreamableCollection', () => {
   it('new DocumentaryStreamableCollection([octopus, freeSolo]) is not equal null', () => {
     expect( new DocumentaryStreamableCollection([octopus, freeSolo])).not.to.be.equal(null);
   });
+  it('disneyPlus.getCollection() returns [octopus, freeSolo]', () => {
+    expect(disneyPlus.getCollection()).to.be.eql([octopus, freeSolo]);
+  });
   it('disneyPlus.getCollectionType() returns \'Documentary\'', () => {
     expect(disneyPlus.getCollectionType()).to.be.equal('Documentary');
   });

@@ -68,8 +68,8 @@ export class Cifrado {
     let msgPos: number;
     let keyPos: number;
     for (let i: number = 0; i < mensaje.length; i++) {
-      msgPos = this.alfabeto.toLowerCase().indexOf(mensaje[i].toLowerCase()); // 7
-      keyPos = this.alfabeto.toLowerCase().indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1; // 3
+      msgPos = this.alfabeto.toLowerCase().indexOf(mensaje[i].toLowerCase());
+      keyPos = this.alfabeto.toLowerCase().indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1;
       cifrado += this.alfabeto[(msgPos + keyPos) % this.alfabeto.length].toLowerCase();
     }
     return cifrado;
@@ -87,8 +87,8 @@ export class Cifrado {
     let keyPos: number;
     let descifratedPos: number;
     for (let i: number = 0; i < mensaje.length; i++) {
-      msgPos = this.alfabeto.indexOf(mensaje[i].toLowerCase()); // 7
-      keyPos = this.alfabeto.indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1; // 3
+      msgPos = this.alfabeto.indexOf(mensaje[i].toLowerCase());
+      keyPos = this.alfabeto.indexOf(this.clave[i % this.clave.length].toLowerCase()) + 1;
       descifratedPos = msgPos - keyPos;
       if (descifratedPos < 0) descifratedPos += this.alfabeto.length;
       descifrado += this.alfabeto[descifratedPos].toLowerCase();
