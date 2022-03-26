@@ -124,7 +124,7 @@
    }
    ```
 
-    #### __Clase `Pokedex`__: 
+   #### __Clase `Pokedex`__: 
    El constructor de esta clase recibe como parámetros un array de objetos de la clase `Fighter` correspondiente a la propiedad `fighters`. La clase consta del getter para dicha propiedad, de un método `addFighter()` para añadir luchadores al array `fighters`, otro para eliminarlos de este `removeFighter()`, y un método `searchByName` que devuelve un array con los luchadores cuya propiedad `name` coincida con el `string` pasado como parámetro.
    
    
