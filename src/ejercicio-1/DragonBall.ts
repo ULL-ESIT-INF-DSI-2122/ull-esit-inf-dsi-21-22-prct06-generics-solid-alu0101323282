@@ -1,13 +1,26 @@
-import {Fighter, UniverseType} from './Fighter';
+import {Fighter, Universe} from './Fighter';
 /**
- * Class to represent pokemons.
+ * Class to represent dragon ball universe.
  */
 export abstract class DragonBall extends Fighter {
+  /**
+   * Fighter race.
+   */
   protected abstract readonly race: string;
-  protected readonly universe: UniverseType = 'StarWars';
+  /**
+   * Universe.
+   */
+  protected readonly universe: Universe = 'StarWars';
+  /**
+   * Constructor for the class `DragonBall`.
+   */
   constructor() {
     super();
   }
+  /**
+   * Getter for the attribute `race`.
+   * @returns Returns the attribute `race`.
+   */
   getRace() {
     return this.race;
   }

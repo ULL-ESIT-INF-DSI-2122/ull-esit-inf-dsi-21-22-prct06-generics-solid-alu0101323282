@@ -1,5 +1,8 @@
 import {Pokemon, PokemonType} from '../Pokemon';
 
+/**
+ * Class to represent the pokemon Charmander.
+ */
 export class Charmander extends Pokemon {
   protected readonly name: string = 'Charmander';
   protected readonly height: number = 1;

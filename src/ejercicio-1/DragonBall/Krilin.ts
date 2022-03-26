@@ -1,6 +1,9 @@
 import {DragonBall} from '../DragonBall';
 
-export class Goku extends DragonBall {
+/**
+ * Class to represent the dragon ball human Krilin.
+ */
+export class Krilin extends DragonBall {
   protected readonly name: string = 'Krilin';
   protected readonly height: number = 1.50;
   protected readonly weigth: number = 45;

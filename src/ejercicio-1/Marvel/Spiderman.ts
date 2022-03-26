@@ -1,5 +1,8 @@
 import {Marvel} from '../Marvel';
 
+/**
+ * Class to represent the marvel superhero Spiderman.
+ */
 export class Spiderman extends Marvel {
   protected readonly name: string = 'Spiderman';
   protected readonly height: number = 1.75;

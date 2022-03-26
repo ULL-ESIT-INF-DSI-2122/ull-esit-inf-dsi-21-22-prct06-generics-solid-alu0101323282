@@ -1,15 +1,27 @@
-import {Fighter, UniverseType} from './Fighter';
-
+import {Fighter, Universe} from './Fighter';
 
 /**
- * Class to represent DC Universe figthers.
+ * Class to represent DC universe.
  */
 export abstract class DC extends Fighter {
+  /**
+   * Fighter real name.
+   */
   protected abstract readonly realName: string;
-  protected readonly universe: UniverseType = 'DC';
+  /**
+   * Universe.
+   */
+  protected readonly universe: Universe = 'DC';
+  /**
+   * Constructor for the class `DC`.
+   */
   constructor() {
     super();
   }
+  /**
+   * Getter for the attribute `realName`.
+   * @returns Returns the attribute `realName`.
+   */
   getRealName() {
     return this.realName;
   }

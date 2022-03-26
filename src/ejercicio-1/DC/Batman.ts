@@ -1,5 +1,8 @@
 import {DC} from '../DC';
 
+/**
+ * Class to represent the dc superhero Batman.
+ */
 export class Batman extends DC {
   protected readonly name: string = 'Batman';
   protected readonly height: number = 1.90;

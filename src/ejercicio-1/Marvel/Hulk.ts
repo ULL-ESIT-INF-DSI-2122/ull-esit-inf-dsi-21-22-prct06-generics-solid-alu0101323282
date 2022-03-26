@@ -1,5 +1,8 @@
 import {Marvel} from '../Marvel';
 
+/**
+ * Class to represent the marvel superhero Hulk.
+ */
 export class Hulk extends Marvel {
   protected readonly name: string = 'Hulk';
   protected readonly height: number = 2.5;

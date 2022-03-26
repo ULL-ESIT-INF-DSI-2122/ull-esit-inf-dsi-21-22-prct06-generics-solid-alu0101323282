@@ -1,5 +1,8 @@
-import {StarWars} from '../Starwars';
+import {StarWars} from '../StarWars';
 
+/**
+ * Class to represent the star wars villian Darth Vader.
+ */
 export class DarthVader extends StarWars {
   protected readonly name: string = 'Darth Vader';
   protected readonly height: number = 1.78;

@@ -14,21 +14,21 @@ export class Pokedex {
    * Getter for the attribute `fighters`.
    * @return Returns the attribute `fighters`.
    */
-  getFighters() {
+  getFighters(): Fighter[] {
     return this.fighters;
   }
 
   /**
    * Setter for the attribute `fighters`.
    */
-  setFighters(f: Fighter[]) {
-    this.fighters = f;
+  removeFighters(i: number): void {
+    this.fighters.splice(i, 1);
   }
   /**
-   * Adds a pokemon to the array `fighters`.
-   * @param fighters Fighter to add.
+   * Adds a fighter to the array `fighters`.
+   * @param f Fighter to add.
    */
-  addFighter(f: Fighter) {
+  addFighter(f: Fighter): void {
     this.fighters.push(f);
   }
 

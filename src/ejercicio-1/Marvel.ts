@@ -1,14 +1,27 @@
-import {Fighter, UniverseType} from './Fighter';
+import {Fighter, Universe} from './Fighter';
 
 /**
- * Class to represent pokemons.
+ * Abstract class to represent marvel universe.
  */
 export abstract class Marvel extends Fighter {
+  /**
+   * Fighter power.
+   */
   protected abstract readonly power: string;
-  protected readonly universe: UniverseType = 'Marvel';
+  /**
+   * Universe.
+   */
+  protected readonly universe: Universe = 'Marvel';
+  /**
+   * Constructor for the class `Marvel`.
+   */
   constructor() {
     super();
   }
+  /**
+   * Getter for the attribute `power`.
+   * @returns Returns the attribute `power`.
+   */
   getPower() {
     return this.power;
   }

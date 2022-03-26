@@ -1,5 +1,8 @@
-import {StarWars} from '../Starwars';
+import {StarWars} from '../StarWars';
 
+/**
+ * Class to represent the star wars jedi Luke Skywalker.
+ */
 export class Skywalker extends StarWars {
   protected readonly name: string = 'Luke Skywalker';
   protected readonly height: number = 1.70;

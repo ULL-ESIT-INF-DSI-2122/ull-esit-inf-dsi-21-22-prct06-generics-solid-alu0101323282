@@ -1,5 +1,8 @@
 import {Pokemon, PokemonType} from '../Pokemon';
 
+/**
+ * Class to represent the pokemon Pikachu.
+ */
 export class Pikachu extends Pokemon {
   protected readonly name: string = 'Pikachu';
   protected readonly height: number = 0.8;

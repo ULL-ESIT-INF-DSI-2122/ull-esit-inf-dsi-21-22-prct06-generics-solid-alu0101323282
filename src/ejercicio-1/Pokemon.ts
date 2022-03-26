@@ -1,19 +1,32 @@
-import {Fighter, UniverseType} from './Fighter';
+import {Fighter, Universe} from './Fighter';
 
 /**
- * Definition of the posible pokemon types
+ * PErsonalized type for pokemon types
  */
 export type PokemonType = 'fire' | 'grass' | 'water' | 'electric';
 
 /**
- * Class to represent pokemons.
+ * Class to represent pokemon universe.
  */
 export abstract class Pokemon extends Fighter {
+  /**
+   * Pokemon type.
+   */
   protected abstract readonly type: PokemonType;
-  protected readonly universe: UniverseType = 'Pokemon';
+  /**
+   * Universe.
+   */
+  protected readonly universe: Universe = 'Pokemon';
+  /**
+   * Constructor for the class `Pokemon`.
+   */
   constructor() {
     super();
   }
+  /**
+   * Getter for the attribute `power`.
+   * @returns Returns the attribute `power`.
+   */
   getType() {
     return this.type;
   }
