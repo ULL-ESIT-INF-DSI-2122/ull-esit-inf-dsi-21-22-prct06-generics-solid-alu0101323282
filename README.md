@@ -36,8 +36,8 @@
    - attackDamage(): Calcula el daño causado por un ataque del primer luchador pasado como parámetro al segundo luchador pasado como parámetro. Mediante un `switch` se calcula la efectividad del ataque según los el universo de los contrincantes y finalmente se devuelve el resultado de la fórmula: 50 * (attacker.getAttack() / defender.getDefense()) * efectivity.
    - printHPs(): Imprime los puntos de vida de cada luchador. Si el valor es menor que cero se imprime un `0` en lugar del valor real, esto se comprueba con un `if-else`.
    
-    ``` typescript
-    export class Combat {
+   ``` typescript
+   export class Combat {
      constructor(private readonly fighter1: Fighter,
          private readonly fighter2: Fighter) {
      }
