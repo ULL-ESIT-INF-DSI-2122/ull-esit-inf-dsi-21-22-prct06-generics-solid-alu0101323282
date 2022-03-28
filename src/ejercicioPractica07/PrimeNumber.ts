@@ -80,7 +80,7 @@ export class PrimeNumber implements Iterable<number> {
    * @param n Number to evaluate.
    * @returns Returns true if `n` is a prime number.
    */
-  isPrime(n: number): boolean {
+  private isPrime(n: number): boolean {
     for (let i: number = 2; i*i <= n; i++) {
       if (n % i === 0) {
         return false;
