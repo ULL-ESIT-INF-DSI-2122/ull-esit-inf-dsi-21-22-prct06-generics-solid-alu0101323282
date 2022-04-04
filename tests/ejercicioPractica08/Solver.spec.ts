@@ -19,8 +19,14 @@ describe('Pruebas clase Solver', () => {
   it('s.logic() returns the array [2, 4, 7] sorted with Bubblesort', () => {
     expect(s.logic()).to.be.eql([2, 4, 7]);
   });
-  it('s.logic() returns the array [2, 4, 7] sorted with MergeSort', () => {
+  it('s.getStrategy() returns b', () => {
+    expect(s.getStrategy()).to.be.equal(b);
+  });
+  it('s.setStrategy(m) sets strategy to m', () => {
     s.setStrategy(m);
+    expect(s.getStrategy()).to.be.equal(m);
+  });
+  it('s.logic() returns the array [2, 4, 7] sorted with MergeSort', () => {
     expect(s.logic()).to.be.eql([2, 4, 7]);
   });
 });

@@ -21,6 +21,14 @@ export class Solver {
   }
 
   /**
+   * Getter for the attribute `startegy`.
+   * @param strategy Returns `strategy`.
+   */
+  getStrategy() {
+    return this.strategy;
+  }
+
+  /**
    * Delegetes the work to the strategy object.
    */
   logic() {
