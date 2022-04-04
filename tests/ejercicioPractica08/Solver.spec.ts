@@ -1,8 +1,8 @@
 import 'mocha';
 import {expect} from 'chai';
 import {Solver} from '../../src/ejercicioPractica08/Solver';
-import {Bubblesort} from '../../src/ejercicioPractica08/Bubblesort';
-import {Mergesort} from '../../src/ejercicioPractica08/Mergesort';
+import {Bubblesort} from '../../src/ejercicioPractica08/Strategies/Bubblesort';
+import {Mergesort} from '../../src/ejercicioPractica08/Strategies/Mergesort';
 
 describe('Pruebas clase Solver', () => {
   let s: Solver;

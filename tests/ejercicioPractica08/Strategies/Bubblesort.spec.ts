@@ -1,6 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
-import {Bubblesort} from '../../src/ejercicioPractica08/Bubblesort';
+import {Bubblesort} from '../../../src/ejercicioPractica08/Strategies/Bubblesort';
 
 describe('Pruebas clase Bubblesort', () => {
   let b: Bubblesort;

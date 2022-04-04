@@ -1,5 +1,5 @@
-import {Bubblesort} from './Bubblesort';
-import {Mergesort} from './Mergesort';
+import {Bubblesort} from './Strategies/Bubblesort';
+import {Mergesort} from './Strategies/Mergesort';
 import {Solver} from './Solver';
 
 const mySolver = new Solver([1, 2, 3], new Bubblesort());

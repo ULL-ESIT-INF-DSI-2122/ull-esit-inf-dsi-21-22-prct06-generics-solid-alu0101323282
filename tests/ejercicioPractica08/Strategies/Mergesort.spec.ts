@@ -1,6 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
-import {Mergesort} from '../../src/ejercicioPractica08/Mergesort';
+import {Mergesort} from '../../../src/ejercicioPractica08/Strategies/Mergesort';
 
 describe('Pruebas clase Mergesort', () => {
   let m: Mergesort;
